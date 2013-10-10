@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="MatlabUtils : Useful MATLAB functions" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>MatlabUtils</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ahills60/MatlabUtils">View on GitHub</a>
+
+          <h1 id="project_title">MatlabUtils</h1>
+          <h2 id="project_tagline">Useful MATLAB functions</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ahills60/MatlabUtils/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ahills60/MatlabUtils/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="matlabutils" class="anchor" href="#matlabutils"><span class="octicon octicon-link"></span></a>MatlabUtils</h1>
+
+<p>MatlabUtils provides useful scripts for MATLAB including high quality video output using <a href="http://www.ffmpeg.org/">FFmpeg</a>.</p>
+
+<h2>
+<a name="libraries" class="anchor" href="#libraries"><span class="octicon octicon-link"></span></a>Libraries</h2>
+
+<p>MatlabUtils comes with various independent MATLAB scripts and functions. These are currently partitioned into separate directories.</p>
+
+<h3>
+<a name="conversions" class="anchor" href="#conversions"><span class="octicon octicon-link"></span></a>Conversions</h3>
+
+<p>Currently, there is only one conversion script within the Conversions folder.</p>
+
+<h4>
+<a name="latexit" class="anchor" href="#latexit"><span class="octicon octicon-link"></span></a>latexit</h4>
+
+<p>The function <code>latexit</code> converts the given variable and returns the LaTeX representation of that object. The LaTeX script is also copied into the clipboard for pasting elsewhere.</p>
+
+<h3>
+<a name="utilities" class="anchor" href="#utilities"><span class="octicon octicon-link"></span></a>Utilities</h3>
+
+<p>Currently, there is a group of scripts that create high resolution video.</p>
+
+<h4>
+<a name="mp4video" class="anchor" href="#mp4video"><span class="octicon octicon-link"></span></a>MP4Video</h4>
+
+<p>The MP4Video group consists of the following files:</p>
+
+<ul>
+<li>
+<code>MP4Video.m</code> is the main class file that constructs an object for video construction.</li>
+<li>
+<code>takeframe.m</code> is a script that captures a frame and exports the file as a high resolution image file. Images are saved in a temporary location.</li>
+<li>
+<code>makeMP4.m</code> constructs a video file using FFmpeg and can be called once all frames are captured.</li>
+<li>
+<code>cleanMP4.m</code> deletes the images stored in the temporary location. If the files are not deleted, MATLAB should remove them on exit.</li>
+<li>
+<code>MP4Demo.m</code> consists of a simple demonstration on how the above files can be used to create a video.</li>
+</ul><p>MP4Video requires FFmpeg to be present and available from the system's path. If the command <code>!ffmpeg -version</code> is not recognised by MATLAB, then either FFmpeg is not installed or it hasn't been added to the system path. Installation instructions are provided below.</p>
+
+<p>To use MP4Video, the following commands creates a new video called <code>filename.avi</code> that uses 15 fps and an image resolution of 600 dpi:</p>
+
+<div class="highlight highlight-matlab"><pre><span class="n">myMov</span> <span class="p">=</span> <span class="n">MP4Video</span><span class="p">(</span><span class="s">'filename.avi'</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">600</span><span class="p">);</span>
+<span class="n">fig</span> <span class="p">=</span> <span class="n">figure</span><span class="p">;</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">10</span>
+    <span class="c">% Plot something</span>
+    <span class="n">myMov</span> <span class="p">=</span> <span class="n">takeframe</span><span class="p">(</span><span class="n">myMov</span><span class="p">,</span> <span class="n">fig</span><span class="p">);</span> <span class="c">% Capture the current frame</span>
+<span class="k">end</span>
+<span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">);</span>
+<span class="n">makeMP4</span><span class="p">(</span><span class="n">myMov</span><span class="p">);</span>
+<span class="n">cleanMP4</span><span class="p">(</span><span class="n">myMov</span><span class="p">);</span>
+</pre></div>
+
+<p>If the figure handle is not specified then <code>takeframe</code> will get the current figure handle (<code>gcf</code>).</p>
+
+<h5>
+<a name="installing-ffmpeg" class="anchor" href="#installing-ffmpeg"><span class="octicon octicon-link"></span></a>Installing FFmpeg</h5>
+
+<p>FFmpeg is freely available from the <a href="http://www.ffmpeg.org/download.html">FFmpeg website</a>. Using default install paths on Linux and Mac platforms should make FFmpeg available on the system path.</p>
+
+<p>Windows users can install FFmpeg using the <a href="http://ffmpeg.zeranoe.com/builds/">Zeranoe FFmpeg builds</a>. I recommend using the static release. For instructions on how to add FFmpeg to the system path, instructions are available on <a href="http://www.wikihow.com/Install-FFmpeg-on-Windows">wikiHow</a>.</p>
+
+<p><em>Note: MATLAB should be restarted if it was open when the system path was updated.</em></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">MatlabUtils maintained by <a href="https://github.com/ahills60">ahills60</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
