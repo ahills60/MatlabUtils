@@ -1,5 +1,6 @@
-myMov = MP4Video('example.avi', 15, 600);
-myMov.codec = 'mjpeg';
+myMov = MP4Video('example.mp4', 15, 600);
+myMov.codec = 'libx264';
+myMov.videoresolution = '1280x960';
 t = linspace(0,2.5*pi,40);
 fact = 10*sin(t);
 fig=figure;
