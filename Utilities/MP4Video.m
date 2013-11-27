@@ -1,14 +1,15 @@
-function output = MP4Video(filename, fps, resolution)
+function output = MP4Video(filename, fps, resolution, vidRes)
 %%MP4Video
 %
 % MP4Video returns an object that is used to create an MP4 video.
 %
-% Usage: movObject = MP4Video(filename, FrameRate, Resolution)
+% Usage: movObject = MP4Video(filename, FrameRate, Resolution, VideoResolution)
 %
 % Defaults:
 %
-%    FrameRate: 24 frames/s
-%   Resolution: display resolution
+%       FrameRate: 24 frames/s
+%      Resolution: display resolution
+% VideoResolution: Dependendent on DPI and figure size
 %
 
 %
@@ -16,6 +17,9 @@ function output = MP4Video(filename, fps, resolution)
 %
 
 % Clean up inputs
+if nargin < 4
+    vidRes = '';
+end
 if nargin < 3
     resolution = [];
 end
@@ -39,6 +43,8 @@ output.templocation = [tempname filesep];
 output.framerate = fps;
 output.currentframe = 1;
 output.codec = 'mjpeg';
+output.videoresolution = vidRes;
+output.x264options = '-preset slow -crf 15'
 if ~exist(output.templocation, 'file')
     mkdir(output.templocation);
 end

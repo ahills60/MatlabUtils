@@ -15,10 +15,21 @@ if ~isstruct(movObject)
     error('Expected movie object structure as an input')
 end
 
+if ~isempty(movObject.videoresolution)
+    resolution = [' -s ' movObject.videoresolution];
+else
+    resolution = '';
+end
+
 if strcmpi(movObject.codec, 'libx264')
-    system(sprintf('ffmpeg -f image2 -r %i -i %sframe%%05d.%s -c:v libx264 %s', movObject.framerate, movObject.templocation, movObject.exporttype, movObject.filename));
+    [status, ~] = system(sprintf('ffmpeg -r %i -i %sframe%%05d.%s -c:v libx264 %s -pix_fmt yuv420p%s %s', movObject.framerate, movObject.templocation, movObject.exporttype, movObject.x264options, resolution, movObject.filename), '-echo');
 elseif strcmpi(movObject.codec, 'mjpeg')
-    system(sprintf('ffmpeg -f image2 -r %i -i %sframe%%05d.%s %s', movObject.framerate, movObject.templocation, movObject.exporttype, movObject.filename));
+    [status, ~] = system(sprintf('ffmpeg -f image2 -r %i -i %sframe%%05d.%s%s %s', movObject.framerate, movObject.templocation, movObject.exporttype, resolution, movObject.filename), '-echo');
 else
     error('Unrecognisable codec')
+end
+
+% Enable capturing of errors in FFmpeg
+if status ~= 0
+    error('Video encoding failed')
 end
