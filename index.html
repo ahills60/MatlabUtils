@@ -2,9 +2,9 @@
 <html>
 
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="MatlabUtils : Useful MATLAB functions" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="MatlabUtils : Useful MATLAB functions">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -50,6 +50,11 @@
 <a name="latexit" class="anchor" href="#latexit"><span class="octicon octicon-link"></span></a>latexit</h4>
 
 <p>The function <code>latexit</code> converts the given variable and returns the LaTeX representation of that object. The LaTeX script is also copied into the clipboard for pasting elsewhere.</p>
+
+<h4>
+<a name="writecsv" class="anchor" href="#writecsv"><span class="octicon octicon-link"></span></a>writecsv</h4>
+
+<p>The function <code>writecsv</code> writes a cell object to a given filename. The expected usage is <code>writecsv(FILENAME, INPUT_VARIABLE)</code>. If the given input variable is not a cell object, the function calls MATLAB's <code>csvwrite</code> function.</p>
 
 <h3>
 <a name="utilities" class="anchor" href="#utilities"><span class="octicon octicon-link"></span></a>Utilities</h3>
