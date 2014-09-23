@@ -10,6 +10,9 @@ Currently, there is only one conversion script within the Conversions folder.
 #### latexit
 The function `latexit` converts the given variable and returns the LaTeX representation of that object. The LaTeX script is also copied into the clipboard for pasting elsewhere.
 
+#### writecsv
+The function `writecsv` writes a cell object to a given filename. The expected usage is `writecsv(FILENAME, INPUT_VARIABLE)`. If the given input variable is not a cell object, the function calls MATLAB's `csvwrite` function.
+
 ### Utilities
 Currently, there is a group of scripts that create high resolution video.
 
