@@ -45,7 +45,7 @@ try
                 fprintf(fid, '%s', mat2str(inputvariable{m, n}));
             end
             % Only append a comma if we're not at the end of the line.
-            if n ~= cols
+            if n ~= size(inputvariable, 2)
                 fprintf(fid, ', ');
             end
         end
